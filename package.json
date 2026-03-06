@@ -5,6 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "build": "npm run migrate",
     "start": "node src/app.js",
     "start:dev": "nodemon src/app.js",
     "test": "vitest --run",
