@@ -1,3 +1,5 @@
+process.env.ENABLE_RATE_LIMITER = 'true';
+
 import request from 'supertest';
 import createServer from '../createServer.js';
 import container from '../../container.js';

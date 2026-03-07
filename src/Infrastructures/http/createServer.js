@@ -22,10 +22,8 @@ const createServer = async (container) => {
   // Middleware for parsing JSON
   app.use(express.json());
 
-  if (process.env.NODE_ENV === 'test') {
-    // disable rate limiter during automated tests to avoid interference
-    app.use('/threads', (_req, _res, next) => next());
-  } else {
+  const shouldUseRateLimiter = process.env.NODE_ENV !== 'test' || process.env.ENABLE_RATE_LIMITER === 'true';
+  if (shouldUseRateLimiter) {
     app.use('/threads', threadLimiter);
   }
 
