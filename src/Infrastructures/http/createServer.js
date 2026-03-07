@@ -22,12 +22,13 @@ const createServer = async (container) => {
   // Middleware for parsing JSON
   app.use(express.json());
 
-  // Register routes
+  app.use('/threads', threadLimiter);
+
   app.use('/users', users(container));
   app.use('/authentications', authentications(container));
-  app.use('/threads', threadLimiter, threads(container));
-  app.use('/threads/:threadId/comments', threadLimiter, comments(container));
-  app.use('/threads/:threadId/comments/:commentId/replies', threadLimiter, replies(container));
+  app.use('/threads', threads(container));
+  app.use('/threads/:threadId/comments', comments(container));
+  app.use('/threads/:threadId/comments/:commentId/replies', replies(container));
 
   // Global error handler
   app.use((error, req, res, _next) => {
